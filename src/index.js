@@ -6,14 +6,16 @@ class Request {
   constructor(options = {}) {
     const {
       getHeaders = () => ({}),
-        loading = loadingCtrl,
-        handleError = () => {},
-        toast = Toast
+      loading = loadingCtrl,
+      handleError = () => {},
+      toast = Toast,
+      alertDetail = false
     } = options
 
     this.getHeaders = getHeaders
     this.handleError = handleError
     this.toast = toast
+    this.alertDetail = alertDetail
 
     this.loadingCount = 0
     this.loadingCtrl = loading
@@ -22,17 +24,16 @@ class Request {
     // 请求前更改配置
     axios.interceptors.request.use(config => {
       const data = this.getHeaders(config) // 动态设置headers
-      Object.entries(data).forEach(([key, value]) => config.headers[key] = value)
+      Object.entries(data).forEach(
+        ([key, value]) => (config.headers[key] = value)
+      )
       return config
     })
 
     // 状态码200处理
     axios.interceptors.response.use(
       response => {
-        const {
-          data = {},
-            config = {}
-        } = response
+        const { data = {}, config = {} } = response
         if (config.loading !== false) this.showLoading()
         if (!data.success && !data.iRet) {
           // 后台自定义错误
@@ -69,11 +70,9 @@ class Request {
   }
   // 错误处理
   _handleError(error) {
-    const {
-      status = '', config = {}, data = {}
-    } = error.response || {} // 状态吗
+    const { status = '', config = {}, data = {} } = error.response || {} // 状态吗
 
-    const getMessage = (status) => {
+    const getMessage = status => {
       const codeMessage = {
         400: '请求有错误',
         401: '没有权限',
@@ -85,13 +84,16 @@ class Request {
         500: '服务器发生错误',
         502: '网关错误',
         503: '服务不可用',
-        504: '网络超时',
-      };
+        504: '网络超时'
+      }
       return codeMessage[status] || '请求失败'
     }
-    const msg = status ? (data.info || getMessage(status)) : '网络超时' // 提示信息
+    const msg = status ? data.info || getMessage(status) : '网络超时' // 提示信息
     if (msg && config.alert !== false) {
-      this.toast(`${status} ${config.url || ''}：\n ${msg}`)
+      const errorMsg = this.alertDetail
+        ? `${status} ${config.url || ''}：\n ${msg}`
+        : msg
+      this.toast(errorMsg)
     }
     this.handleError(status, msg, error) // 自定义错误处理
   }

@@ -2,10 +2,7 @@ import './index.less'
 
 let timer
 
-function show({
-  text = '',
-  delay = 10000000
-} = {}) {
+function show({ text = '', delay = 10000000 } = {}) {
   if (timer) clearTimeout(timer)
   let container = document.getElementById('kuan-loading')
   if (!container) {
@@ -18,16 +15,14 @@ function show({
     <span class="loading-tip">${text}</span>
   `
   container.style.display = 'flex'
-  hide(delay)
+  setTimeout(hide, delay)
 }
 
-function hide(delay = 300) {
-  timer = setTimeout(() => {
-    const container = document.getElementById('kuan-loading')
-    if (container) {
-      container.style.display = 'none'
-    }
-  }, delay)
+function hide() {
+  const container = document.getElementById('kuan-loading')
+  if (container) {
+    container.style.display = 'none'
+  }
 }
 
 export default {

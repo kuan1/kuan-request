@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node dev",
     "build": "node build",
+    "build:demo": "node buildDemo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,39 +14,14 @@
     "url": "git+https://github.com/kuan1/kuan-request.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "luzhongk@126.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kuan1/kuan-request/issues"
   },
   "homepage": "https://github.com/kuan1/kuan-request#readme",
   "devDependencies": {
-    "@babel/core": "^7.0.1",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/runtime": "^7.1.2",
-    "autoprefixer": "^9.1.5",
-    "babel-loader": "^8.0.2",
-    "chalk": "^2.4.1",
-    "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.2",
-    "css-loader": "^1.0.0",
-    "file-loader": "^2.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.4.2",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "portfinder": "^1.0.17",
-    "postcss-loader": "^3.0.0",
-    "style-loader": "^0.23.0",
-    "url-loader": "^1.1.1",
-    "webpack": "^4.19.0",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8",
-    "webpack-merge": "^4.1.4",
-    "webpack-node-externals": "^1.7.2",
-    "webpackbar": "^2.6.3"
+    "kuan-pack": "^1.0.8"
   },
   "dependencies": {
     "axios": "^0.18.0"
