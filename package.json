@@ -2,7 +2,7 @@
   "name": "kuan-request",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/kuan-request",
   "scripts": {
     "dev": "node dev",
     "build": "node build",
