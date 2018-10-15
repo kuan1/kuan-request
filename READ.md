@@ -1,5 +1,7 @@
 # kuan-request
 
+> 简单包装一下 axios，添加全局 loading，错误处理
+
 ## 使用
 
 ```
@@ -10,6 +12,7 @@ const requestObj = new Requeset({
   handleError: (status, msg, error) => console.log(status, msg, error), // 自定义错误处理
   // loading = loadingCtrl, // 自定义loading
   // toast = Toast // 自定义提示
+    alertDetail = false // 是否提示详细错误
 })
 
 const request = requestObj.create()
