@@ -26,6 +26,10 @@ request({
 
 ## 更新
 
-1.01
+1.02
+
+- loading bug fix
+
+  1.01
 
 - readme
