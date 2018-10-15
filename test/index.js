@@ -3,8 +3,8 @@ import Requeset from '../src'
 const requestObj = new Requeset({
   // getHeaders：自定义headers
   handleError: (status, msg, error) => console.log(status, msg, error) // 自定义错误处理
-  // loading = loadingCtrl, // 自定义loading
-  // toast = Toast, // 自定义提示
+  // loading: loadingCtrl, // 自定义loading
+  // toast: Toast, // 自定义提示
   // alertDetail: true // 显示详细报错信息
 })
 
