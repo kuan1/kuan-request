@@ -6,5 +6,6 @@ const path = require('path')
 const { buildLib: build } = require('kuan-pack')
 
 build({
-  distPath: path.resolve(__dirname, 'lib')
+  distPath: path.resolve(__dirname, 'lib'),
+  libName: 'kuan-request'
 })
