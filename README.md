@@ -29,6 +29,7 @@ request({
 1.02
 
 - loading bug fix
+- 升级 kuan-pack 版本
 
   1.01
 

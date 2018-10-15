@@ -3069,9 +3069,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-kuan-pack@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/kuan-pack/-/kuan-pack-1.0.8.tgz#feb08791eecefb5264f15cbc60e364793bafbaaa"
+kuan-pack@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/kuan-pack/-/kuan-pack-1.0.9.tgz#330caeb154ad7ca5d59bf339e9ac6f278273af97"
   dependencies:
     "@babel/core" "^7.0.1"
     "@babel/plugin-transform-runtime" "^7.0.0"
