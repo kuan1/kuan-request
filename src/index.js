@@ -24,6 +24,7 @@ class Request {
     // 请求前更改配置
     axios.interceptors.request.use(config => {
       const data = this.getHeaders(config) // 动态设置headers
+      if (config.loading !== false) this.showLoading()
       Object.entries(data).forEach(
         ([key, value]) => (config.headers[key] = value)
       )
@@ -33,8 +34,7 @@ class Request {
     // 状态码200处理
     axios.interceptors.response.use(
       response => {
-        const { data = {}, config = {} } = response
-        if (config.loading !== false) this.showLoading()
+        const { data = {} } = response
         if (!data.success && !data.iRet) {
           // 后台自定义错误
           const message = data.info || data.error || ''
