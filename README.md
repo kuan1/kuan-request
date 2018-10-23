@@ -26,7 +26,11 @@ request({
 
 ## 更新
 
-1.02
+1.03
+
+- 返回服务端下的数据下一级 data
+
+  1.02
 
 - loading bug fix
 - 升级 kuan-pack 版本

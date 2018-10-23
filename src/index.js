@@ -44,7 +44,9 @@ class Request {
           throw error
         }
         this.hideLoading()
-        return response.data
+
+        return data.data // 针对公司真实数据
+        // return response.data
       },
       error => {
         this._handleError(error)
