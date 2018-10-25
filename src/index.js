@@ -20,9 +20,13 @@ class Request {
     this.loadingCount = 0
     this.loadingCtrl = loading
   }
-  create() {
+  create(createOptions) {
+    let instance
+    if (createOptions) {
+      instance = axios.create(createOptions)
+    }
     // 请求前更改配置
-    axios.interceptors.request.use(config => {
+    instance.interceptors.request.use(config => {
       const data = this.getHeaders(config) // 动态设置headers
       if (config.loading !== false) this.showLoading()
       Object.entries(data).forEach(
@@ -32,7 +36,7 @@ class Request {
     })
 
     // 状态码200处理
-    axios.interceptors.response.use(
+    instance.interceptors.response.use(
       response => {
         const { data = {} } = response
         if (!data.success && !data.iRet) {
@@ -54,7 +58,7 @@ class Request {
         return Promise.reject(error)
       }
     )
-    return axios
+    return instance
   }
   showLoading() {
     // 显示loading
@@ -72,6 +76,8 @@ class Request {
   }
   // 错误处理
   _handleError(error) {
+    this.hideLoading()
+
     const { status = '', config = {}, data = {} } = error.response || {} // 状态吗
 
     const getMessage = status => {

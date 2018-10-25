@@ -8,13 +8,13 @@ const requestObj = new Requeset({
   // alertDetail: true // 显示详细报错信息
 })
 
-const request = requestObj.create()
+const request = requestObj.create({ baseURL: 'http://api.luzhongkuan.cn' })
 
 request({
-  url: 'http://api.luzhongkuan.cn/api/location2'
+  url: '/api/location2'
   // loading: false,
   // alert: false,
-}).then(({ data }) => {
+}).then(data => {
   const _div = document.createElement('div')
   _div.innerHTML = `<h3>${JSON.stringify(data)}</h3>`
   document.body.appendChild(_div)
