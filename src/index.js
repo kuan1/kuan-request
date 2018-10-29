@@ -27,9 +27,9 @@ class Request {
     }
     // 请求前更改配置
     instance.interceptors.request.use(config => {
-      const data = this.getHeaders(config) // 动态设置headers
+      const headers = this.getHeaders(config) || {} // 动态设置headers
       if (config.loading !== false) this.showLoading()
-      Object.entries(data).forEach(
+      Object.entries(headers).forEach(
         ([key, value]) => (config.headers[key] = value)
       )
       return config
@@ -96,7 +96,9 @@ class Request {
       }
       return codeMessage[status] || '请求失败'
     }
-    const msg = status ? data.info || getMessage(status) : '网络超时' // 提示信息
+    const msg = status
+      ? data.info || data.msg || getMessage(status)
+      : '网络超时' // 提示信息
     if (msg && config.alert !== false) {
       const errorMsg = this.alertDetail
         ? `${status} ${config.url || ''}：\n ${msg}`

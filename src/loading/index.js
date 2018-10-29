@@ -11,8 +11,10 @@ function show({ text = '', delay = 10000000 } = {}) {
     document.body.appendChild(container)
   }
   container.innerHTML = `
-    <div class="spinner-snake"></div>
-    <span class="loading-tip">${text}</span>
+    <div class="spinner-wrap">
+      <div class="spinner-snake"></div>
+      <span class="loading-tip">${text}</span>
+    </div>
   `
   container.style.display = 'flex'
   setTimeout(hide, delay)

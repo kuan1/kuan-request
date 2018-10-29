@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/kuan1/kuan-request#readme",
   "devDependencies": {
-    "kuan-pack": "^1.0.9"
+    "kuan-pack": "1.0.10"
   },
   "dependencies": {
     "axios": "^0.18.0"
