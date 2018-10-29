@@ -26,11 +26,15 @@ request({
 
 ## 更新
 
-1.04
+1.05
+
+- loading、fix other
+
+  1.04
 
 - 发生错误隐藏 loading
 
-1.03
+  1.03
 
 - 返回服务端下的数据下一级 data
 
