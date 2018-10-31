@@ -16,8 +16,8 @@ request({
   url: '/api/manager/login',
   method: 'post',
   data: {
-    password: 'alan',
-    username: 'cpc@8023'
+    username: 'alan',
+    password: 'cpc@8023'
   }
 }).then(data => {
   const _div = document.createElement('div')

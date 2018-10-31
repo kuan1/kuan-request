@@ -21,7 +21,7 @@ class Request {
     this.loadingCtrl = loading
   }
   create(createOptions) {
-    let instance
+    let instance = axios
     if (createOptions) {
       instance = axios.create(createOptions)
     }
