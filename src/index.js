@@ -109,4 +109,4 @@ class Request {
   }
 }
 
-export default Request
+export default Api

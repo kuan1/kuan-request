@@ -1,6 +1,6 @@
-import Requeset from '../src'
+import Api from '../src'
 
-const requestObj = new Requeset({
+const api = new Api({
   // getHeaders: () => {
   //   // return { Authorization: 'bWFuYWdlciwx' }
   // },
@@ -10,7 +10,7 @@ const requestObj = new Requeset({
   // alertDetail: true // 显示详细报错信息
 })
 
-const request = requestObj.create({})
+const request = api.create({})
 
 request({
   url: '/api/manager/login',
