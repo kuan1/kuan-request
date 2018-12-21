@@ -2,12 +2,12 @@
 # 发布npm
 start_deploy() {
   echo "starting..."; # major、minor、patch
+  
+  npm run build;
 
   git add .;
 
   git commit -a -m 'ready update version';
-
-  npm run build;
 
   npm version patch;
 
