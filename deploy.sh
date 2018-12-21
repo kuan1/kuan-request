@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# 发布npm
 start_deploy() {
   echo "starting..."; # major、minor、patch
 
@@ -16,6 +16,7 @@ start_deploy() {
   echo "end";
 }
 
+# 确定发布npm
 read -r -p "Are You Sure? [Y/n] " input
 
 case $input in
