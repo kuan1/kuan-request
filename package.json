@@ -7,6 +7,7 @@
     "dev": "node dev",
     "build": "node build",
     "build:demo": "node buildDemo",
+    "deploy": "yarn build && bash ./deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
