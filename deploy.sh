@@ -11,8 +11,6 @@ start_deploy() {
 
   npm version patch;
 
-  npm publish;
-
   echo "end";
 }
 
