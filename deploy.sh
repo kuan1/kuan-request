@@ -1,13 +1,35 @@
-echo "starting..."; # major、minor、patch
+#!/bin/bash
 
-git add .;
+start_deploy() {
+  echo "starting..."; # major、minor、patch
 
-git commit -a -m 'ready update version';
+  git add .;
 
-npm version patch;
+  git commit -a -m 'ready update version';
 
-npm run build;
+  npm run build;
 
-# npm publish;
+  npm version patch;
 
-echo "end";
+  npm publish;
+
+  echo "end";
+}
+
+read -r -p "Are You Sure? [Y/n] " input
+
+case $input in
+  [yY][eE][sS]|[yY])
+  echo "YES"
+  start_deploy
+  ;;
+
+  [nN][oO]|[nN])
+  echo "No"
+  ;;
+
+  *)
+	echo "Invalid input..."
+	exit 1
+	;;
+esac
