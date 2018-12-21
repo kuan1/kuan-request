@@ -3087,7 +3087,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-kuan-pack@1.1.4:
+kuan-pack@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npmjs.org/kuan-pack/-/kuan-pack-1.1.4.tgz#0acb2804cc9ff514ccb7ce2fff39138360552954"
   dependencies:

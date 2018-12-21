@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'production'
-process.env.EXTRACT_CSS = '0'
-process.env.DISCARD_HTML = '0'
 
 const path = require('path')
 const { buildLib: build } = require('kuan-pack')
 
 build({
   distPath: path.resolve(__dirname, 'lib'),
-  libName: 'kuan-request'
+  libName: 'kuan-request',
+  htmlTemplate: false,
+  extractCss: false
 })

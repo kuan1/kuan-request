@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/kuan1/kuan-request#readme",
   "devDependencies": {
-    "kuan-pack": "1.1.4"
+    "kuan-pack": "^1.1.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
