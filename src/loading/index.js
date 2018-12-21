@@ -1,8 +1,14 @@
+/**
+ * author luzhongk@126.com
+ * 简单的loading控制
+ */
+
 import './index.less'
 
 let timer
 
 function show({ text = '', delay = 10000000 } = {}) {
+  if (typeof document === 'undefined') return
   if (timer) clearTimeout(timer)
   let container = document.getElementById('kuan-loading')
   if (!container) {
@@ -21,6 +27,7 @@ function show({ text = '', delay = 10000000 } = {}) {
 }
 
 function hide() {
+  if (typeof document === 'undefined') return
   const container = document.getElementById('kuan-loading')
   if (container) {
     container.style.display = 'none'

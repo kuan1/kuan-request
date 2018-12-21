@@ -7,7 +7,7 @@ dev({
   entry: path.resolve(__dirname, 'test'),
   proxy: {
     '/api': {
-      target: 'http://140.143.3.30:8089',
+      target: 'http://api.luzhongkuan.cn',
       changeOrigin: true
     }
   }
