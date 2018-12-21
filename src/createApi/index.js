@@ -25,7 +25,7 @@ const codeMessage = {
 
 const noop = () => {}
 
-export default options => {
+export default (options = {}) => {
   const {
     loadingCtrl = defaultLoading, // loading方法
     toast = defaultToast, // 提示方法
