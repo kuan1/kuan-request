@@ -1,6 +1,6 @@
 # kuan-request
 
-> 简单包装一下 axios，添加全局 loading，错误处理
+> 针对幻熊科技后台数据结构，简单包装一下 axios，添加全局 loading，错误处理
 
 ## 使用
 
@@ -39,7 +39,7 @@ test()
 - 封装逻辑整理
 - 更多注释
 
-1.05
+  1.05
 
 - loading、fix other
 
