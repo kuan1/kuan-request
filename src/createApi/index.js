@@ -71,16 +71,18 @@ export default (options = {}) => {
     // 动态设置headers
     const headers = getHeaders(config) || {}
     if (config.loading !== false && shouldLoading) loadingCtrl.show()
-    Object.entries(headers).forEach(
-      ([key, value]) => (config.headers[key] = value)
-    )
+    for (let key in headers) {
+      const value = headers[key]
+      config.headers[key] = value
+    }
+
     return config
   })
 
   // 返回结果拦截
   instance.interceptors.response.use(
     response => {
-      const { data = {} } = response
+      const { data = {}, config } = response
       if (!data.success && !data.iRet) {
         // 自定义错误
         const message = data.info || data.error || '未知错误'

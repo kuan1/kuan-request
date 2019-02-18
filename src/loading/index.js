@@ -3,7 +3,7 @@
  * 简单的loading控制
  */
 
-import './index.less'
+import './index.scss'
 
 let timer
 

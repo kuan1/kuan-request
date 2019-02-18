@@ -3,7 +3,7 @@
  * 简单的提示
  */
 
-import './index.less'
+import './index.scss'
 
 function show(text = '', delay = 2000) {
   if (typeof document === 'undefined') return
