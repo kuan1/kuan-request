@@ -90,7 +90,7 @@ export default (options = {}) => {
         _handleError(error)
         throw error
       }
-      loadingCtrl.hide()
+      if (config.loading !== false && shouldLoading) loadingCtrl.hide()
       return data.data // 后台返回真实数据
     },
     error => {
