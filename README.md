@@ -4,7 +4,7 @@
 
 ## 使用
 
-```
+```js
 import { createApi } from 'kuan-request'
 
 const request = createApi({
