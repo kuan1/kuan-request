@@ -1,28 +1,32 @@
-import { encrypt } from '../src'
+import { encrypt, createApi } from '../src'
 
-encrypt({ a: 111, time: 22, b: 33 }, 1234, true)
+const token = ''
 
-// import { createApi } from '../src'
+const key = '3b61b09d557af8ddb34769c03dbb8089'
 
-// const request = createApi({
-//   // loadingCtrl: () => {}, // 自定义loading
-//   // toast: () => {}, // 自定义提示
-//   getHeaders: () => ({ aa: 11 }), // 动态设置headers
-//   handleError: (status, msg, error) => console.log(status, msg, error), // 自定义错误处理
-//   createOptions: { headers: { bb: 22 } }, // axios默认设置
-//   alertDetail: true, // 提示详细信息
-//   shouldAlert: true, // 是否错误提示
-//   shouldLoading: true // 是否loading
-// })
+const request = createApi({
+  // loadingCtrl: () => {}, // 自定义loading
+  // toast: () => {}, // 自定义提示
+  getHeaders: config => {
+    const { params = {}, data = {} } = config
+    const now = Date.parse(new Date()) / 1000
+    const headers = {
+      'X-Halo-App': 'oa-dkp',
+      'X-Http-Request-Halo-Time': now,
+      'X-Http-Request-Halo-Sign': encrypt(
+        { ...params, ...data, time: now },
+        key
+      )
+    }
+    if (token) {
+      headers.Authorization = `Bearer ${token}`
+    }
+    return headers
+  }
+})
 
-// function test() {
-//   request({
-//     url: '/api/test'
-//   }).then(data => {
-//     const _div = document.createElement('div')
-//     _div.innerHTML = `<h3>${JSON.stringify(data)}</h3>`
-//     document.body.appendChild(_div)
-//   })
-// }
-
-// test()
+request({
+  url: '/api/dkp/v1/treasure'
+}).then(res => {
+  console.log(res)
+})
