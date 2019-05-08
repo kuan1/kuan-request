@@ -2,7 +2,7 @@ import { encrypt, createApi } from '../src'
 
 const token = ''
 
-const key = '3b61b09d557af8ddb34769c03dbb8089'
+const key = ''
 
 const request = createApi({
   // loadingCtrl: () => {}, // 自定义loading
