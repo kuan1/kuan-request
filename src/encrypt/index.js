@@ -1,5 +1,6 @@
 import md5 from 'blueimp-md5'
 import hash from 'hash.js'
+import { sha256 } from 'js-sha256'
 
 /**
  * 加密
@@ -8,7 +9,7 @@ import hash from 'hash.js'
  * @param {Boolean} isDebug 是否是开发模式
  */
 export default function encrypt(params = {}, encryptKey, isDebug) {
-  if (!encryptKey) throw new Error('encryptKey is required')
+  if (!encryptKey) return ''
   const keys = Object.keys(params).sort()
   const sign = keys
     .reduce((collect, key) => {
@@ -20,10 +21,7 @@ export default function encrypt(params = {}, encryptKey, isDebug) {
       return collect
     }, [])
     .join('')
-  const res = hash
-    .sha256()
-    .update(`${md5(encodeURIComponent(sign))}${encryptKey}`)
-    .digest('hex')
+  const res = sha256(`${md5(encodeURIComponent(sign))}${encryptKey}`)
   if (isDebug) {
     console.log(sign, res)
   }

@@ -2,11 +2,11 @@
   "name": "kuan-request",
   "version": "1.1.5",
   "description": "",
-  "main": "lib/kuan-request",
+  "main": "lib/kuan-request.min.js",
   "scripts": {
     "dev": "node dev",
+    "build:lib": "node buildLib",
     "build": "node build",
-    "build:demo": "node buildDemo",
     "deploy": "bash ./deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/kuan1/kuan-request#readme",
   "devDependencies": {
-    "kuan-pack": "^2.0.3",
+    "kuan-pack": "^2.1.2",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0"
   },
@@ -34,6 +34,6 @@
     "@babel/runtime": "^7.2.0",
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
-    "hash.js": "^1.1.7"
+    "js-sha256": "^0.9.0"
   }
 }

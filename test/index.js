@@ -1,7 +1,5 @@
 import { encrypt, createApi } from '../src'
 
-const token = ''
-
 const key = ''
 
 const request = createApi({
@@ -9,6 +7,7 @@ const request = createApi({
   // toast: () => {}, // 自定义提示
   getHeaders: config => {
     const { params = {}, data = {} } = config
+    const token = ''
     const now = Date.parse(new Date()) / 1000
     const headers = {
       'X-Halo-App': 'oa-dkp',
