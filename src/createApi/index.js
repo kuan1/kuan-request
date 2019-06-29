@@ -77,7 +77,6 @@ export default function createApi({
         if (i < maxCount) {
           const status = getErrStatus(e)
           // 401重新登录
-          console.log(11, status)
           if (status === 401 && loginForce) {
             await loginForce()
             continue
