@@ -74,6 +74,7 @@ export default function createApi({
         // 返回接口内容
         return data.data
       } catch (e) {
+        console.error(`${options.url}`, e.response || '')
         if (i < maxCount) {
           const status = getErrStatus(e)
           // 401重新登录

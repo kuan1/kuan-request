@@ -45,10 +45,10 @@ const request = createApi({
 window.test = async () => {
   const data = await request(
     {
-      url: '/api/200'
+      url: '/api/400'
     },
     {
-      shouldCache: true,
+      shouldCache: false,
       shouldToast: true,
       shouldLoading: true
     }
