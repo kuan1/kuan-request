@@ -4,7 +4,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'test'),
   proxy: {
     '/api': {
-      target: 'https://oa.halobear.com',
+      target: 'https://www.luzhongkuan.cn',
       changeOrigin: true
     }
   }

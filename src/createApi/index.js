@@ -1,107 +1,101 @@
-/**
- * author luzhongkuan@126.com
- * 针对幻熊科技对axios进行2次封装，添加loading，错误提示，错误处理
- */
-
 import axios from 'axios'
-import { default as defaultLoading } from './loadingCtrl'
-import { default as defaultToast } from '../toast'
-
-// 状态码对应错误信息
-const codeMessage = {
-  400: '请求有错误',
-  401: '没有权限',
-  403: '用户得到授权，但是访问是被禁止的。',
-  404: '未找到',
-  405: '请求method错误',
-  406: '请求的格式不可得。',
-  410: '请求的资源被永久删除',
-  422: '当创建一个对象时，发生一个验证错误。',
-  500: '服务器发生错误',
-  502: '网关错误',
-  503: '服务不可用',
-  504: '网络超时'
-}
+import loadingCtrl from './utils/loading'
+import toastCtrl from '../toast'
+import { getErrMsg, getErrStatus } from './utils/util'
 
 const noop = () => {}
 
-export default (options = {}) => {
-  const {
-    loadingCtrl = defaultLoading, // loading方法
-    toast = defaultToast, // 提示方法
-    getHeaders = noop, // 动态设置headers
-    handleError = noop, // 自定义错误处理
-    createOptions = {}, // axios默认设置
-    alertDetail = false, // 提示详细信息
-    shouldAlert = true, // 是否错误提示
-    shouldLoading = true // 是否loading
-  } = options
+// 数据缓存对象
+const cache = {}
 
-  // 错误处理
-  const _handleError = (error = {}) => {
-    // 发生错误取消loading
-    loadingCtrl.hide()
-
-    // 请求返回信息
-    const { status = '', config = {}, data = {} } = error.response || {}
-
-    // 获取错误信息
-    const getMessage = status => {
-      if (!status) return '网络超时'
-      return data.info || data.msg || codeMessage[status] || '请求失败'
-    }
-
-    // 提示信息
-    const msg = getMessage(status)
-    if (msg && config.alert !== false && shouldAlert) {
-      let errorMsg = msg
-      // 提示详细错误
-      if (alertDetail) {
-        errorMsg = `${status} ${config.url || ''}：\n ${msg}`
-      }
-      toast(errorMsg)
-    }
-    // 自定义错误处理
-    handleError(status, msg, error)
-  }
-
+export default function createApi({
+  loading = loadingCtrl, // loading方法
+  toast = toastCtrl, // 提示方法
+  setHeaders = noop, // 动态设置headers
+  handleError = noop, // 自定义错误处理
+  loginForce = null, // 返回401登录后再次尝试
+  createOptions = {}, // axios默认设置
+  maxCount = 1
+} = {}) {
+  // axios接口返回对象
   const instance = axios.create(createOptions)
-  // 请求拦截
+  // 动态设置headers
   instance.interceptors.request.use(config => {
-    // 动态设置headers
-    const headers = getHeaders(config) || {}
-    if (config.loading !== false && shouldLoading) loadingCtrl.show()
+    const headers = setHeaders(config) || {}
     for (let key in headers) {
       const value = headers[key]
       config.headers[key] = value
     }
-
     return config
   })
 
-  // 返回结果拦截
-  instance.interceptors.response.use(
-    response => {
-      const { data = {}, config } = response
-      if (!data.success && !data.iRet) {
-        // 自定义错误
-        const message = data.info || data.error || '未知错误'
-        const error = new Error(message) // eslint-disable-line
-        error.response = response
-        // 统一错误处理
-        _handleError(error)
-        throw error
-      }
-      if (config.loading !== false && shouldLoading) loadingCtrl.hide()
-      return data.data // 后台返回真实数据
-    },
-    error => {
-      // 统一错误处理
-      _handleError(error)
-      return Promise.reject(error)
+  return async (
+    options,
+    { shouldLoading = true, shouldToast = true, shouldCache = false } = {}
+  ) => {
+    // 是否缓存
+    if (shouldCache) {
+      const targetCache = cache[options.url]
+      if (targetCache) return targetCache
     }
-  )
 
-  // 返回axios实例
-  return instance
+    // 是否loadding
+    if (shouldLoading) loading.show()
+
+    for (let i = 0; i < maxCount + 1; i++) {
+      try {
+        const response = await instance(options)
+        const { data } = response
+
+        // 取消loading
+        if (shouldLoading) loading.hide()
+
+        // 缓存结果
+        if (shouldCache) {
+          cache[options.url] = data.data
+        }
+
+        // 后台返回自定义错误
+        if (!data.success && !data.iRet) {
+          const message = data.info || data.error || '' // 错误信息
+          const err = new Error(message) // eslint-disable-line
+          err.response = response
+
+          // 错误信息提示
+          if (shouldToast) {
+            toast(getErrMsg(e))
+          }
+
+          // 统一错误处理
+          handleError(err)
+          throw err
+        }
+
+        // 返回接口内容
+        return data.data
+      } catch (e) {
+        if (i < maxCount) {
+          const status = getErrStatus(e)
+          // 401重新登录
+          console.log(11, status)
+          if (status === 401 && loginForce) {
+            await loginForce()
+            continue
+          }
+        }
+
+        // 消除错误提示
+        if (shouldLoading) loading.hide(true)
+
+        // 错误信息提示
+        if (shouldToast) {
+          toast(getErrMsg(e))
+        }
+
+        // 自定义错误处理
+        handleError(e)
+        return Promise.reject(e)
+      }
+    }
+  }
 }

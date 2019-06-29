@@ -1,34 +1,80 @@
 # kuan-request
 
-> 针对幻熊科技后台数据结构，简单包装一下 axios，添加全局 loading，错误处理
+> 针对幻熊科技后台数据结构，简单包装一下 axios
+
+- 添加 loading、toast、缓存、401 登陆后再次尝试等功能
 
 ## 使用
 
+### 安装
+
+```bash
+yarn add kuan-request
+```
+
+### 创建 request 对象
+
 ```js
-import { createApi } from 'kuan-request'
+import { encrypt, createApi } from 'kuan-request'
 
 const request = createApi({
-  // loadingCtrl: () => {}, // 自定义loading
-  // toast: () => {}, // 自定义提示
-  getHeaders: () => ({ aa: 11 }), // 动态设置headers
-  handleError: (status, msg, error) => console.log(status, msg, error), // 自定义错误处理
-  createOptions: { headers: { bb: 22 } }, // axios默认设置
-  alertDetail: true, // 提示详细信息
-  shouldAlert: true, // 是否错误提示
-  shouldLoading: true // 是否loading
+  /* 自定义loading */
+  // loading: () => {},
+
+  /* 自定义提示 */
+  // toast: () => {},
+
+  /* 自定义错误处理 */
+  // handleError: () => {},
+
+  /* axios默认配置 */
+  // createOptions: {
+  //   baseURL: 'https://test.com'
+  // },
+
+  /* 返回401登陆之后再次尝试发送请求 */
+  // loginForce() {
+  //   console.log('登录逻辑')
+  // },
+
+  // 动态设置 headers
+  setHeaders(config) {
+    const { params = {}, data = {} } = config
+    const key = ''
+    const token = ''
+    const now = Date.parse(new Date()) / 1000
+    const headers = {
+      'X-Halo-App': 'oa-dkp',
+      'X-Http-Request-Halo-Time': now,
+      'X-Http-Request-Halo-Sign': encrypt(
+        { ...params, ...data, time: now },
+        key
+      )
+    }
+    if (token) {
+      headers.Authorization = `Bearer ${token}`
+    }
+    return headers
+  }
 })
+```
 
-function test() {
-  request({
-    url: '/api/test'
-  }).then(data => {
-    const _div = document.createElement('div')
-    _div.innerHTML = `<h3>${JSON.stringify(data)}</h3>`
-    document.body.appendChild(_div)
-  })
+### 使用
+
+```js
+window.test = async () => {
+  const data = await request(
+    {
+      url: '/api/200'
+    },
+    {
+      shouldCache: true,
+      shouldToast: true,
+      shouldLoading: true
+    }
+  )
+  console.log(data)
 }
-
-test()
 ```
 
 ## 更新

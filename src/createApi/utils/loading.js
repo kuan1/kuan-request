@@ -1,4 +1,4 @@
-import loading from '../loading'
+import loading from '../../loading'
 
 export default {
   num: 0,
@@ -11,7 +11,7 @@ export default {
   hide(force = false) {
     if (force) {
       this.num = 0
-      wx.hideLoading()
+      loading.hide()
       return
     }
     // 等待发出去的请求返回结果后结束loading
