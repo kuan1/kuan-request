@@ -1,5 +1,4 @@
 import md5 from 'blueimp-md5'
-import hash from 'hash.js'
 import { sha256 } from 'js-sha256'
 
 /**
