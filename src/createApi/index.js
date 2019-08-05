@@ -37,6 +37,8 @@ export default function createApi({
     if (shouldCache) {
       const targetCache = cache[options.url]
       if (targetCache) return targetCache
+    } else {
+      delete cache[options.url]
     }
 
     // 是否loadding
