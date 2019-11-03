@@ -64,8 +64,8 @@ export default function createApi({
           err.response = response
 
           // 错误信息提示
-          if (shouldToast) {
-            toast(getErrMsg(e))
+          if (shouldToast && message) {
+            toast(message)
           }
 
           // 统一错误处理
